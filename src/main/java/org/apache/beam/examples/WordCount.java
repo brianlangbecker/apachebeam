@@ -17,11 +17,6 @@
  */
 package org.apache.beam.examples;
 
-import io.opentelemetry.api.OpenTelemetry;
-import io.opentelemetry.api.common.AttributeKey;
-import io.opentelemetry.api.trace.*;
-import io.opentelemetry.context.Context;
-import io.opentelemetry.context.Scope;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +38,6 @@ import org.apache.beam.sdk.values.TypeDescriptor;
 import org.checkerframework.checker.initialization.qual.Initialized;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.UnknownKeyFor;
-import org.apache.beam.sdk.transforms.DoFn;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -318,12 +312,6 @@ public class WordCount {
         .useLocal(options.getUseLocal())
         .build();
 
-    // final SpanBuilder spanBuilder =
-    // ExampleConfiguration.initOpenTelemetry(openTelemetryOptions, "Start
-    // Run").getTracer("tim.test").spanBuilder("start").setSpanKind(SpanKind.SERVER);
-
-    // final Span span = spanBuilder.startSpan();
-    // span.makeCurrent();
 
     // Concepts #2 and #3: Our pipeline applies the composite CountWords transform,
     // and passes the
@@ -342,7 +330,6 @@ public class WordCount {
         .apply("WriteCounts", TextIO.write().to(options.getOutput()));
 
     p.run().waitUntilFinish();
-    // span.end();
   }
 
   public static void main(String[] args) {

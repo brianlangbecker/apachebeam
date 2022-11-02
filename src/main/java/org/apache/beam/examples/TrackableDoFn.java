@@ -3,16 +3,17 @@ package org.apache.beam.examples;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.trace.*;
-import io.opentelemetry.sdk.common.*;
 import io.opentelemetry.context.Context;
-import io.opentelemetry.context.ContextKey;
 import io.opentelemetry.context.Scope;
 import org.apache.beam.sdk.transforms.DoFn;
+import org.hamcrest.collection.IsArray;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+
+
 public abstract class TrackableDoFn<InputT, OutputT> extends DoFn<TraceableElement<InputT>, TraceableElement<OutputT>> {
     private final OpenTelemetryOptions openTelemetryOptions;
 
@@ -70,8 +71,9 @@ public abstract class TrackableDoFn<InputT, OutputT> extends DoFn<TraceableEleme
         getAttributes().forEach(spanBuilder::setAttribute);
         final Span span = spanBuilder.startSpan();
         try (Scope scope = span.makeCurrent()) {
+            span.setAttribute("traceableElements",traceableElement.getElement().toString());
             process(traceableElement.getElement()).forEach(output -> {
-                span.setAttribute("output",output.toString());
+                span.setAttribute("traceElement",output.toString());
                 final TraceableElement<OutputT> traceableOutput = new TraceableElement<>(output);
                 getOpenTelemetry().getPropagators().getTextMapPropagator().inject(Context.current(), traceableOutput, new TraceableElementPropagation<>());
                 receiver.output(traceableOutput);
