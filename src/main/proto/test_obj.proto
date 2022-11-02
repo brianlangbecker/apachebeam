@@ -1,0 +1,24 @@
+syntax = "proto3";
+package examples;
+option java_package = "org.apache.beam.examples";
+import "google/protobuf/wrappers.proto";
+
+message TestObj {
+  int32 test_int = 1;
+  google.protobuf.Int32Value test_wrapped_int = 2;
+  int64 test_long = 3;
+  google.protobuf.Int64Value test_wrapped_long = 4;
+  double test_double = 5;
+  google.protobuf.DoubleValue test_wrapped_double = 6;
+  string test_string = 7;
+  repeated string test_simple_list = 8;
+  repeated NestedObj test_complex_list = 9;
+  map<string, int32> test_simple_map = 10;
+  map<string, NestedObj> test_complex_map = 11;
+
+
+  message NestedObj {
+    int32 nested_int = 1;
+    string nested_string = 2;
+  }
+}

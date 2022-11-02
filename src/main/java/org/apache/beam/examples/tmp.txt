@@ -1,0 +1,3 @@
+mvn -Pdataflow-runner compile exec:java -Dexec.mainClass=org.apache.beam.examples.DataReadingPipeline -Dexec.args"--project=trace-prototyping-1 --gcpTempLocation=gs://temp-test-bucket-1/tmp --input=gs://coder-test/* --runner=DataflowRunner --maxNumWorkers=10 --workerMachineType=n2-standard-2 --coder=kryo"
+1702
+2508

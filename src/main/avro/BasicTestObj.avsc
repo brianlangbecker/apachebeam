@@ -1,0 +1,14 @@
+[
+{"namespace": "org.apache.beam.examples.avro",
+ "type": "record",
+ "name": "BasicTestObj",
+ "fields": [
+     {"name": "test_int", "type": "int"},
+     {"name": "test_wrapped_int",  "type": ["int", "null"]},
+     {"name": "test_long",  "type": "long"},
+     {"name": "test_wrapped_long",  "type": ["long", "null"]},
+     {"name": "test_double",  "type": "double"},
+     {"name": "test_wrapped_double",  "type": ["double", "null"]},
+     {"name": "test_string", "type": ["string", "null"]}
+ ]
+}]

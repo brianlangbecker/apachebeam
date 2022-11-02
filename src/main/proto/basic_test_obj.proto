@@ -1,0 +1,14 @@
+syntax = "proto3";
+package examples;
+option java_package = "org.apache.beam.examples";
+import "google/protobuf/wrappers.proto";
+
+message BasicTestObj {
+  int32 test_int = 1;
+  google.protobuf.Int32Value test_wrapped_int = 2;
+  int64 test_long = 3;
+  google.protobuf.Int64Value test_wrapped_long = 4;
+  double test_double = 5;
+  google.protobuf.DoubleValue test_wrapped_double = 6;
+  string test_string = 7;
+}
